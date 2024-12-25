@@ -33,44 +33,55 @@ body {
     font-family: 'Lato', sans-serif;
     font-weight: normal;
 }
+
 h1 {
     font-size: 4em;
 }
+
 h2 {
     font-size: 3em;
     margin: 0;
     padding: var(--padding);
 }
+
 h3 {
     font-size: 1.2em;
     margin: 0;
 }
+
 h3.error-message {
     font-size: 1.8em;
     color: var(--error-color);
 }
+
 p {
     display: inline;
 }
+
 ul {
     list-style-type: none;
     text-align: left;
 }
+
 ul li {
     padding: var(--padding);
     font-weight: 400;
 }
+
 li p {
     font-weight: 400;
     color: var(--low-em-color);
 }
+
 .topbar {
     padding: var(--padding);
     text-align: right;
 }
+
 .topbar img {
     height: 2em;
 }
+
 .topbar p {
     margin-top: 0;
     font-size: 1em;
@@ -79,18 +90,38 @@ li p {
 .maincontent {
     padding-left: var(--media-gutter);
 }
+
+.actionbutton {
+    border: 1px solid var(--card-boarder-color);
+    background-color: var(--card-bg-color);
+    margin-top: var(--gutter);
+    margin-bottom: var(--media-gutter);
+    margin-left: var(--gutter);
+    margin-right: var(--media-gutter);
+    padding: var(--padding);
+    text-align: center;
+    border-radius: var(--border-radius);
+    filter: drop-shadow(var(--shadow-color) 0.25rem 0.25rem 0.25rem);
+}
+
+.actionbutton:hover {
+    cursor: pointer;
+}
+
 .navbar {
     margin-top: var(--media-gutter);
     border-top: 1px solid var(--low-em-color);
     border-bottom: 1px solid var(--low-em-color);
     padding-left: var(--media-gutter);
 }
+
 .row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
 }
+
 .navbutton {
     border: 1px solid var(--card-boarder-color);
     background-color: var(--card-bg-color);
@@ -103,35 +134,87 @@ li p {
     border-radius: var(--border-radius);
     filter: drop-shadow(var(--shadow-color) 0.25rem 0.25rem 0.25rem);
 }
+
 .navbutton a {
     text-decoration: none;
     color: var(--text-color);
 }
+
 .navicon .material-symbols-outlined {
     font-size: 2em;
 }
+
+.uniform {
+    margin-top: var(--gutter);
+    margin-bottom: var(--gutter);
+    margin-left: var(--gutter);
+    margin-right: var(--media-gutter);
+    padding: var(--padding);
+    display: flex;
+    flex-direction: row;
+}
+
+.uniform .card {
+    font-size: calc(var(--text-size) * 3);
+    color: var(--text-card-color);
+    border: 1px solid var(--text-card-color);
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    padding: var(--padding);
+    margin: var(--padding);
+    display: flex;
+    flex-direction: column;
+}
+
+.uniform .card .number {
+    text-align: center;
+    padding: var(--padding);
+    font-size: calc(var(--text-size) * 3);
+}
+
+.uniform .attributes {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.uniform .attributes .detail {
+    font-size: calc(var(--text-size) * 1.1);
+    color: var(--text-card-color);
+    border: 1px solid var(--text-card-color);
+    background-color: var(--card-bg-color);
+    border-radius: var(--border-radius);
+    padding: var(--padding);
+    margin: var(--padding)
+}
+
 .maincontent > h2 {
     margin-top: var(--gutter);
     margin-bottom: var(--gutter);
     margin-left: var(--gutter);
     margin-right: var(--media-gutter);
 }
+
 .form-container {
     background: white;
     padding: 20px;
     border-radius: var(--border-radius);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .form-container h2 {
     margin-top: 0;
 }
+
 .form-group {
     margin-bottom: 15px;
 }
+
 .form-group label {
     display: block;
     margin-bottom: 5px;
 }
+
 .form-group input {
     width: 100%;
     padding: 8px;
@@ -139,6 +222,7 @@ li p {
     border: 1px solid #ccc;
     border-radius: var(--border-radius);
 }
+
 .form-group button {
     width: 100%;
     padding: 10px;
@@ -148,16 +232,20 @@ li p {
     border-radius: var(--border-radius);
     cursor: pointer;
 }
+
 .form-group button:disabled {
     background-color: #999;
     cursor: not-allowed;
 }
+
 .form-group select {
     font-size: 1.2em;
 }
+
 .form-group label i {
     font-size: .75em;
 }
+
 .form-group p {
     font-size: .75em;
     color: var(--low-em-color);
@@ -167,74 +255,15 @@ li p {
     color: var(--low-em-color);
 }
 
-.base-icon {
-    display: none;
-    opacity: 1; /* Fully visible */
-    visibility: visible; /* Element is interactive */
-    font-size: 1.8em;
-    padding: 0 0 0 0; /* top padding no-good on schedule form */
-    margin: -1em 0 0 1em; /* left margin */
-    font-weight: bold;
-}
-
-.table {
-    width: 100%;
-    color: var(--text-color);
-    vertical-align: top;
-    margin-right: var(--gutter);
-    margin-left: var(--gutter);
-}
-
-.table > thead {
-    vertical-align: bottom;
-}
-.table th {
-    vertical-align: center;
-    line-height: 1;
-    white-space: nowrap;
-    padding: var(--padding) var(--padding)
-}
-.table thead th {
-    border-top: 0;
-    border-bottom: 2px solid var(--separator-color);
-    font-weight: 600;
-    font-size: 0.875em;
-}
-.maincontent div:hover.link {
-    cursor: pointer;
-    background-color: var(--action-color);
-    opacity: 0.8;
-}
-.table tr:hover td.editable {
-    background-color: var(--low-em-color);
-    opacity: 0.8;
-    border: 2px solid var(--action-color);
-}
-.table tr:hover {
-    cursor: pointer;
-    background-color: var(--action-color);
-    opacity: 0.8;
-}
-.table td {
-    padding: calc(.5 * var(--padding)) calc(2 * var(--padding));
-    vertical-align: center;
-    text-align: right;
-    line-height: 1;
-    white-space: nowrap;
-    border-top: 0;
-    border-bottom: 1px solid var(--separator-color);
-    font-weight: 400;
-    font-size: 0.875em;
-}
-.table > tbody > tr:last-child > td { border-bottom: 0; }
-
 button.action:hover {
     background-color: var(--action-color);
 }
 
 p.top-message {
-    margin-bottom: var(--margin);
-    margin-left: var(--margin);
+    font-size: calc(var(--text-size) * 0.8);
+    margin-left: var(--padding);
+    margin-bottom: 0;
+    text-align: left;
 }
 
 @media screen and (min-width: 800px) {
@@ -242,6 +271,7 @@ p.top-message {
         --media-gutter: 32px;
     }
 }
+
 @media screen and (max-width: 500px) {
     :root {
         --media-gutter: 0;

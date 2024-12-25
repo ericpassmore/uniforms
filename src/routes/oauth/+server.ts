@@ -1,20 +1,22 @@
-import { error, redirect} from '@sveltejs/kit';
-import { OAUTH_CLIENT_ID,
+import {error, redirect} from '@sveltejs/kit';
+import {
+    OAUTH_CLIENT_ID,
     OAUTH_CLIENT_SECRET,
     OAUTH_REDIRECT_URI,
-    OAUTH_TOKEN_URL  } from '$env/static/private'
+    OAUTH_TOKEN_URL
+} from '$env/static/private'
 
-export const GET = async({ cookies, url }) => {
+export const GET = async ({cookies, url}) => {
 
     const code = url.searchParams.get('code')
     const state = url.searchParams.get('state')
 
     if (!code) {
-        error(500,{ message: 'No code provided' });
+        error(500, {message: 'No code provided'});
     }
 
     if (!state || state !== 'hamburger') {
-        error(500,{ message: 'Unexpected state code' });
+        error(500, {message: 'Unexpected state code'});
     }
 
     const token_exchange_url = OAUTH_TOKEN_URL +
@@ -31,21 +33,21 @@ export const GET = async({ cookies, url }) => {
 
         if (!response.ok) {
             const errorData = await response.json();
-            error(500, { message: `Token Exchange Failed with error: ${errorData.error} error description: ${errorData.error_description}` });
+            error(500, {message: `Token Exchange Failed with error: ${errorData.error} error description: ${errorData.error_description}`});
         }
 
-        const { access_token } = await response.json();
+        const {access_token} = await response.json();
 
         // suggest add httpOnly: true  secure: true sameSite: 'strict'
-            cookies.set('uni_auth', access_token, {
-                path: '/',
-                httpOnly: true,
-                secure: true,
-                sameSite: true,
-                maxAge: 60 * 60 * 24 * 7 // 1 week
-            });
+        cookies.set('uni_auth', access_token, {
+            path: '/',
+            httpOnly: true,
+            secure: true,
+            sameSite: true,
+            maxAge: 60 * 60 * 24 * 7 // 1 week
+        });
     } catch (error_obj) {
-        error(500, { message: `Unexpected error:${JSON.stringify(error_obj)}` });
+        error(500, {message: `Unexpected error:${JSON.stringify(error_obj)}`});
     }
     // redirect must be outside of try/catch block
     redirect(307, '/');

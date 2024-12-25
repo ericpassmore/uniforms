@@ -8,11 +8,13 @@
         <span class="material-symbols-outlined">account_circle</span></a>
     </div>
 {:else}
-    <div class="topbar"><a href="/logout" class="link">
+    <div class="topbar active"><a href="/logout" class="link">
         <p>Admin Logout</p>
         <span class="material-symbols-outlined">account_circle</span></a>
     </div>
 {/if}
+
+
 
 <slot></slot>
 
