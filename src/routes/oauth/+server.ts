@@ -1,4 +1,4 @@
-import { error, redirect, json} from '@sveltejs/kit';
+import { error, redirect} from '@sveltejs/kit';
 import { OAUTH_CLIENT_ID,
     OAUTH_CLIENT_SECRET,
     OAUTH_REDIRECT_URI,
@@ -22,7 +22,7 @@ export const GET = async({ cookies, url }) => {
         `&client_id=${OAUTH_CLIENT_ID}` +
         `&client_secret=${OAUTH_CLIENT_SECRET}` +
         `&redirect_uri=${encodeURIComponent(OAUTH_REDIRECT_URI)}` +
-        'grant_type=authorization_code';
+        '&grant_type=authorization_code';
 
     try {
         const response = await fetch(token_exchange_url, {
@@ -31,7 +31,7 @@ export const GET = async({ cookies, url }) => {
 
         if (!response.ok) {
             const errorData = await response.json();
-            error(500, { message: `Token Exchange Failed with ${errorData}` });
+            error(500, { message: `Token Exchange Failed with error: ${errorData.error} error description: ${errorData.error_description}` });
         }
 
         const { access_token } = await response.json();
@@ -44,9 +44,9 @@ export const GET = async({ cookies, url }) => {
                 sameSite: true,
                 maxAge: 60 * 60 * 24 * 7 // 1 week
             });
-            redirect(307, '/');
-
     } catch (error_obj) {
-        error(500, { message: `Unexpected error:${error_obj}` });
+        error(500, { message: `Unexpected error:${JSON.stringify(error_obj)}` });
     }
+    // redirect must be outside of try/catch block
+    redirect(307, '/');
 }

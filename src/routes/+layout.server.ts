@@ -1,4 +1,4 @@
 export async function load({ cookies }) {
-    const pafeAuth = cookies.get('pafe_auth')
-    return {isAuthenticated: !!pafeAuth}
+    const uniAuth = cookies.get('uni_auth')
+    return {isAuthenticated: !!uniAuth}
 }
