@@ -5,9 +5,11 @@ export const GET = async () => {
 
     const state = 'hamburger' // Optional: for CSRF protection
 
-    const authorizationUrl = `${OAUTH_PROVIDER_URL}?client_id=${OAUTH_CLIENT_ID}&redirect_uri=${encodeURIComponent(
-        OAUTH_REDIRECT_URI
-    )}&scope=${encodeURIComponent(OAUTH_SCOPE)}&state=${state}`;
+    const client_id = `client_id=${OAUTH_CLIENT_ID}`
+    const redirect_uri = `redirect_uri=${OAUTH_REDIRECT_URI}`
+    const scope = `scope=${OAUTH_SCOPE}`
+    const type = 'response_type=code'
+    const authorizationUrl = `${OAUTH_PROVIDER_URL}?${client_id}&${redirect_uri}&${type}&${scope}&state=${state}`;
 
     throw redirect(302, authorizationUrl);
 };

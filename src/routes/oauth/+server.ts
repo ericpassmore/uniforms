@@ -15,7 +15,7 @@ export async function GET({ cookies, request }) {
         console.error('Bad State on Authorization:');
         return json({ error: 'Unexpected state code' }, { status: 500 });
     }
-
+    console.log("Got Token and state")
     try {
 
         const response = await fetch(OAUTH_TOKEN_URL, {
@@ -39,6 +39,7 @@ export async function GET({ cookies, request }) {
             return json({ error: 'Token Exchange Failed' }, { status: 500 });
         }
 
+        console.log("fetching access token")
         const { access_token } = await response.json();
 
         // suggest add httpOnly: true  secure: true sameSite: 'strict'
