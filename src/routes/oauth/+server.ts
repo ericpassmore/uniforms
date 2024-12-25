@@ -1,24 +1,34 @@
-import { redirect } from '@sveltejs/kit';
+import { redirect, json  } from '@sveltejs/kit';
+import { OAUTH_CLIENT_ID,
+    OAUTH_CLIENT_SECRET,
+    OAUTH_REDIRECT_URI,
+    OAUTH_TOKEN_URL  } from '$env/static/private'
 
-export async function POST({ cookies, request }) {
-    const { code } = await request.json();
+export async function GET({ cookies, request }) {
+    const { code, state } = await request.json();
 
-    const clientId = process.env.OAUTH_CLIENT_ID;
-    const clientSecret = process.env.OAUTH_CLIENT_SECRET;
-    const redirectUri = process.env.OAUTH_REDIRECT_URI;
-    const tokenUrl = process.env.OAUTH_TOKEN_URL;
+    if (!code) {
+        return json({ error: 'No code provided' }, { status: 400 });
+    }
+
+    if (!state || state !== 'hamburger') {
+        console.error('Bad State on Authorization:');
+        return json({ error: 'Unexpected state code' }, { status: 500 });
+    }
 
     try {
-        const response = await fetch(tokenUrl, {
+
+        const response = await fetch(OAUTH_TOKEN_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: new URLSearchParams({
-                code,
-                client_id: clientId,
-                client_secret: clientSecret,
-                redirect_uri: redirectUri,
+                code: code,
+                client_id: OAUTH_CLIENT_ID,
+                client_secret: OAUTH_CLIENT_SECRET,
+                redirect_uri: OAUTH_REDIRECT_URI,
                 grant_type: 'authorization_code',
             }).toString(),
         });
@@ -26,17 +36,23 @@ export async function POST({ cookies, request }) {
         if (!response.ok) {
             const errorData = await response.json();
             console.error('Error exchanging code for token:', errorData);
-            return new Response(JSON.stringify({ error: 'Token exchange failed' }), { status: 500 });
+            return json({ error: 'Token Exchange Failed' }, { status: 500 });
         }
 
-        const data = await response.json();
+        const { access_token } = await response.json();
 
         // suggest add httpOnly: true  secure: true sameSite: 'strict'
-            cookies.set('uni_auth', data.access_token, { path: '/', httpOnly: true, secure: true, sameSite: true });
+            cookies.set('uni_auth', access_token, {
+                path: '/',
+                httpOnly: true,
+                secure: true,
+                sameSite: true,
+                maxAge: 60 * 60 * 24 * 7 // 1 week
+            });
             redirect(307, '/admin');
 
     } catch (error) {
         console.error('Unexpected error:', error);
-        return new Response(JSON.stringify({ error: 'Unexpected error occurred' }), { status: 500 });
+        return json({ error: 'Unexpected error occurred' }, { status: 500 });
     }
 }
