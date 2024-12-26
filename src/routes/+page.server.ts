@@ -1,5 +1,5 @@
 import type { UserInterface } from "$lib/User";
-import { getUserFromDb, getDatabase} from "$lib/db";
+import { fetchFirst, getDatabase} from "$lib/db";
 import type { CookieData } from "$lib/common";
 
 export const load = async ({cookies}) => {
@@ -11,13 +11,15 @@ export const load = async ({cookies}) => {
             return {isAuthenticated: true, users: null}
         }
 
-        const user: UserInterface | undefined = await getUserFromDb<UserInterface>(getDatabase(), localStore.id)
-        if (user) {
-            return {isAuthenticated: true,
-                user: { id: user.id, firstName: user.firstName, lastName: user.lastName, isLeagueOwner: user.isLeagueOwner },
-                id: localStore.id
-            };
-        } else {
+        try {
+            const user: UserInterface | undefined = await fetchFirst(
+                getDatabase(),
+                "SELECT id, firstName, lastName, email, isLeagueOwner FROM users WHERE id = ?",
+                localStore.id
+            )
+            return {isAuthenticated: true, user: user}
+        } catch (err) {
+            console.log(`Error selecting me ${err}`)
             return {isAuthenticated: false, user: null}
         }
     }

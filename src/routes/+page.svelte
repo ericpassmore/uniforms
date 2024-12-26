@@ -31,7 +31,7 @@
             </a>
         </div>
     {:else}
-        <p class="top-message">Name:  {data.user.firstName} ID: {data.user.id} id: {data.id}</p>
+        <p class="top-message">Name: {data.user.firstName} ID: {data.user.id}</p>
         <div class="actionbutton">
             <a href="/add/">
                 <p class="navicon">

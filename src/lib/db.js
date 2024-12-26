@@ -1,39 +1,39 @@
-import type {Database} from "sqlite3";
-import dotenv from 'dotenv';
-import type {UserInterface} from "$lib/User";
 import fs from 'node:fs';
 import sqlite3 from "sqlite3";
 
-dotenv.config();
 const DATABASE_FILE = process.env.DATABASE_FILE || 'database.sqlite';
-let database: Database;
+let database;
 
-export async function initializeDb() {
-    database = await openDb();
-    await createTables(database);
+initializeDb()
+
+export function initializeDb() {
+    database =  openDb();
+    console.log("Database initialized...")
+    createTables(database);
+    console.log("created tables...")
 }
 
 export function getDatabase() {
     return database;
 }
 
-export function getSign() {
+export function getDatabaseLocation() {
     return `${fs.realpathSync('.')}/${DATABASE_FILE}`
 }
 
-async function openDb(): Promise<Database> {
+function openDb() {
     return new sqlite3.Database(
-        '/Users/eric/WebServiceProjects/side_projects/database.sqlight',
+        `${fs.realpathSync('.')}/${DATABASE_FILE}`,
         sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE | sqlite3.OPEN_FULLMUTEX
     );
 }
 
-async function closeDb(db: Database): Promise<void> {
+function closeDb(db) {
     return db.close()
 }
 
-async function createTables(db: Database): Promise<void> {
-    await db.exec(`
+function createTables(db) {
+    db.exec(`
         CREATE TABLE IF NOT EXISTS users (
           id INTEGER PRIMARY KEY,
           firstName TEXT NOT NULL,
@@ -42,7 +42,7 @@ async function createTables(db: Database): Promise<void> {
           isLeagueOwner INTEGER DEFAULT FALSE
         );
   `);
-    await db.exec(`
+    db.exec(`
         CREATE TABLE IF NOT EXISTS user_log (
           id INTEGER KEY,
           date TEXT NOT NULL,
@@ -50,7 +50,7 @@ async function createTables(db: Database): Promise<void> {
           equipment_id INTEGER NULL
         );
   `);
-    await db.exec(`
+    db.exec(`
         CREATE TABLE IF NOT EXISTS uniforms (
           id INTEGER PRIMARY KEY,
           jersey_number INTEGER NOT NULL,
@@ -64,13 +64,21 @@ async function createTables(db: Database): Promise<void> {
   `);
 }
 
-export async function getUserFromDb(db: Database, id: number): Promise<UserInterface | undefined> {
-    const query = `SELECT id, firstName, lastName, isLeagueOwner FROM users WHERE id = ?`;
-    const result: UserInterface | undefined = await db.get<UserInterface>(query, id);
-    return result;
-}
+export const fetchFirst = async (db, sql, params) => {
+    return new Promise((resolve, reject) => {
+        db.get(sql, params, (err, row) => {
+            if (err) reject(err);
+            resolve(row);
+        });
+    });
+};
 
-export async function getAllUserFromDb(db: Database): Promise<UserInterface[] | undefined> {
-    const query = `SELECT id, firstName, lastName, isLeagueOwner FROM users`;
-    return await db.get<UserInterface[] | undefined>(query);
-}
+export const fetchAll = async (db, sql, params) => {
+    return new Promise((resolve, reject) => {
+        db.all(sql, params, (err, rows) => {
+            if (err) reject(err);
+            resolve(rows);
+        });
+    });
+};
+
