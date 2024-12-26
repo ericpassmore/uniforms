@@ -21,7 +21,7 @@
 
 <main class="maincontent">
     {#if !data.isAuthenticated}
-        <p class="top-message"> Please log in first </p>
+        <p class="top-message"> Please log in first</p>
         <div class="actionbutton">
             <a href="/login/">
                 <p class="navicon">
@@ -31,6 +31,7 @@
             </a>
         </div>
     {:else}
+        <p class="top-message">Name:  {data.user.firstName} ID: {data.user.id} id: {data.id}</p>
         <div class="actionbutton">
             <a href="/add/">
                 <p class="navicon">
