@@ -82,6 +82,10 @@ li p {
     height: 2em;
 }
 
+.topbar p.user {
+    padding-right: var(--padding);
+}
+
 .topbar p {
     margin-top: 0;
     font-size: 1em;
@@ -253,6 +257,24 @@ li p {
 
 .lowemphasis {
     color: var(--low-em-color);
+}
+
+.activitylog {
+    padding: var(--padding);
+    margin: var(--padding);
+}
+
+.activitylog .logrow {
+    border-bottom: 1px solid var(--low-em-color);
+    margin-bottom: var(--padding);
+}
+.activitylog .logrow span {
+    display: inline-block;
+    width: 8em;
+    margin: var(--padding);
+}
+.activitylog .logrow span.datetime {
+    width: 15em;
 }
 
 button.action:hover {

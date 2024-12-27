@@ -43,23 +43,25 @@ function createTables(db) {
         );
   `);
     db.exec(`
-        CREATE TABLE IF NOT EXISTS user_log (
-          id INTEGER KEY,
+        CREATE TABLE IF NOT EXISTS activity (
+          id INTEGER AUTO INCREMENT PRIMARY KEY,
+          userId INTEGER,
           date TEXT NOT NULL,
           action TEXT NOT NULL,
-          equipment_id INTEGER NULL
+          equipmentId INTEGER NULL
         );
   `);
     db.exec(`
         CREATE TABLE IF NOT EXISTS uniforms (
-          id INTEGER PRIMARY KEY,
-          jersey_number INTEGER NOT NULL,
-          jersey_size TEXT NOT NULL,
-          has_shorts INTEGER NOT NULL,
-          pinnie_number INTEGER NOT NULL,
-          pinnie_size TEXT NOT NULL,
-          has_pinnie INTEGER NOT NULL DEFAULT TRUE,
-          checked_out_by INTEGER NOT NULL DEFAULT -1
+          id INTEGER AUTO INCREMENT PRIMARY KEY,
+          jerseyNumber INTEGER NOT NULL,
+          jerseySize TEXT NOT NULL,
+          hasShorts INTEGER NOT NULL,
+          pinnieNumber INTEGER NOT NULL,
+          pinnieSize TEXT NOT NULL,
+          hasPinnie INTEGER NOT NULL DEFAULT TRUE,
+          checkedOutBy INTEGER NOT NULL DEFAULT -1,
+          validateInStock INTEGER NOT NULL DEFAULT FALSE
         );
   `);
 }

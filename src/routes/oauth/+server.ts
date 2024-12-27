@@ -59,7 +59,7 @@ export const GET = async ({cookies, url}) => {
         const user = new User(userData.collection.items);
 
         // suggest add httpOnly: true  secure: true sameSite: 'strict'
-        cookies.set('uni_auth', `{id:${user.id || -1},token:'fffff'`, {
+        cookies.set('uni_auth', `{"id":${user.id || -1},"token":"${access_token}"}`, {
             path: '/',
             httpOnly: true,
             secure: true,

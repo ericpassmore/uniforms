@@ -1,0 +1,18 @@
+
+import {authCheck} from "$lib/authCheck";
+import {error} from "@sveltejs/kit";
+import {fetchAll, getDatabase} from "$lib/db";
+
+export const load = async ({cookies}) => {
+    let results
+    const isAuthorized = await authCheck(cookies.get('uni_auth'))
+    if (!isAuthorized) {
+            error(403, {message: 'Not Authorized'});
+    } else {
+        const sql = "SELECT userId, users.firstName, users.lastName, date, action, equipmentId FROM activity " +
+        "INNER JOIN users ON users.id = activity.userId"
+        const db = getDatabase()
+        results = await fetchAll(db, sql)
+    }
+    return {results}
+}

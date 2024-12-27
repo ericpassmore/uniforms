@@ -1,5 +1,6 @@
-import type {TeamSnapItemInterface} from "$lib/TeamSnapAPI";
+import type {TeamSnapItemInterface} from "$lib/TeamSnapInterfaces";
 import { getDatabase } from "$lib/db"
+import {Activity} from "$lib/Activity";
 
 interface UserInterface {
     id: number;
@@ -33,7 +34,15 @@ class User {
         const db = getDatabase();
         db.run("INSERT OR REPLACE "
             +" INTO users(id, firstName, lastName, email, isLeagueOwner) "
-            +` VALUES (${this.id}, '${this.firstName}', '${this.lastName}', '${this.email}', ${this.isLeagueOwner ? 1 : 0})`)
+            +"VALUES (?, ?, ?, ?, ?)",
+            this.id,
+            this.firstName,
+            this.lastName,
+            this.email,
+            this.isLeagueOwner ? 1 : 0
+        )
+
+        Activity.login(this.id)
     }
 
     /**

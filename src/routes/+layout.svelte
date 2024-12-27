@@ -1,20 +1,21 @@
-<script>
+<script lang="ts">
     export let data;
 </script>
 
 {#if !data.isAuthenticated}
     <div class="topbar"><a href="/login" class="link">
-        <p>Admin Login</p>
+        <p>Login</p>
         <span class="material-symbols-outlined">account_circle</span></a>
     </div>
 {:else}
-    <div class="topbar active"><a href="/logout" class="link">
-        <p>Admin Logout</p>
-        <span class="material-symbols-outlined">account_circle</span></a>
+    <div class="topbar active">
+        <p class="user">{data.user ? data.user.firstName : ""}</p>
+        <a href="/logout" class="link">
+            <p>Logout</p>
+            <span class="material-symbols-outlined">account_circle</span>
+        </a>
     </div>
 {/if}
-
-
 
 <slot></slot>
 
@@ -34,12 +35,21 @@
                 <p class="subtext">About</p>
             </a>
         </div>
-        <div class="navbutton">
-            <a href="/add/">
-                <p class="navicon"><span class="material-symbols-outlined">shopping_cart</span></p>
-                <br/>
-                <p class="subtext">Add</p>
-            </a>
-        </div>
+        {#if data.user && data.user.isLeagueOwner}
+            <div class="navbutton">
+                <a href="/restock/">
+                    <p class="navicon"><span class="material-symbols-outlined">inventory</span></p>
+                    <br/>
+                    <p class="subtext">Restock</p>
+                </a>
+            </div>
+            <div class="navbutton">
+                <a href="/activity/">
+                    <p class="navicon"><span class="material-symbols-outlined">history</span></p>
+                    <br/>
+                    <p class="subtext">Activity</p>
+                </a>
+            </div>
+        {/if}
     </div>
 </div>
