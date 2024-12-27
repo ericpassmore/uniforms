@@ -12,7 +12,7 @@
 <form id="full" class="inline-add" method="POST" action="?/add" use:enhance>
     <div class="form-group">
         <label for="jersey-number">Jersey Number:</label>
-        <input type="text" id="jersey-number" name="jersey-number" maxlength="3" required>
+        <input type="number" id="jersey-number" name="jersey-number" maxlength="3" required>
         <label for="jersey-size">Jersey Size:</label>
         <select class="action" name="jersey-size" id="jersey-size" required>
             <option value="youth-small" selected>Youth-Small</option>
@@ -36,7 +36,7 @@
             <option value="0">No</option>
         </select>
         <label for="pinnie-number" >Pinnie Number:</label>
-        <input type="text" id="pinnie-number" name="pinnie-number" maxlength="3" disabled="{noPinnieStatus}">
+        <input type="number" id="pinnie-number" name="pinnie-number" maxlength="3" disabled="{noPinnieStatus}">
         <label for="pinnie-size">Pinnie Size:</label>
         <select class="action" name="pinnie-size" id="pinnie-size" disabled="{noPinnieStatus}">
             <option value="youth-small" selected>Youth-Small</option>

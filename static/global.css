@@ -22,6 +22,7 @@
     --border-radius: 4px;
     --popover-space: 20px;
     --popover-padding: 10px;
+    --number-width: 2.8em;
 }
 
 body {
@@ -160,11 +161,11 @@ li p {
 
 .uniform .card {
     font-size: calc(var(--text-size) * 3);
+    width: var(--number-width);
     color: var(--text-card-color);
     border: 1px solid var(--text-card-color);
     background-color: var(--card-bg-color);
     border-radius: var(--border-radius);
-    padding: var(--padding);
     margin: var(--padding);
     display: flex;
     flex-direction: column;
@@ -220,7 +221,7 @@ li p {
 }
 
 .form-group input {
-    width: 3em;
+    width: var(--number-width);
     font-size: 1.8em;
     padding: 8px;
     box-sizing: border-box;

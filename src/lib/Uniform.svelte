@@ -2,6 +2,7 @@
     import type {UniformsListInterface} from "$lib/common";
 
     export let item: UniformsListInterface;
+    export let style: string = "short";
 </script>
 
 <div class="uniform">
@@ -30,15 +31,17 @@
                 No Pinney
             </div>
         {/if}
-        {#if item.userId > 0 }
+        {#if (item.userId > 0 && style === "all") }
             <div class="detail">
                 Checked Out: {item.firstName + " " + item.lastName}
                 <br/>{item.email}
                 <br/>User Id: {item.id}
             </div>
         {/if}
-        <div class="detail">
-            Reconcile: {item.validateInStock ? "Ready" : "Not Available"}
-        </div>
+        {#if (style === "all")}
+            <div class="detail">
+                Reconcile: {item.validateInStock ? "Ready" : "Not Available"}
+            </div>
+        {/if}
     </div>
 </div>

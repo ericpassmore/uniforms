@@ -6,6 +6,6 @@
 
 <div class="list_alt">
     {#each data.uniforms as item}
-        <Uniform item="{item}" />
+        <Uniform item="{item}" style='all' />
     {/each}
 </div>

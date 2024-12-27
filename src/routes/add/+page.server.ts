@@ -24,9 +24,12 @@ export const actions = {
                 "(jerseyNumber, jerseySize, hasShorts, pinnieNumber, pinnieSize, hasPinnie) " +
                 "VALUES (?, ?, ?, ?, ?, ?)"
             const db = getDatabase()
-            db.run(sql, jerseyNumber, jerseySize, hasShorts, pinnieNumber, pinnieSize, hasPinnie)
+            try {
+                db.run(sql, jerseyNumber, jerseySize, hasShorts, pinnieNumber, pinnieSize, hasPinnie)
 
+            } catch (err) {
+                error(500, {message: `Error while creating uniform ${(err as Error).message}`})
+            }
         }
-
     }
 }
