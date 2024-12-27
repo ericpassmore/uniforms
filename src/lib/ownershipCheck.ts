@@ -1,7 +1,7 @@
 import {fetchFirst, getDatabase} from "$lib/db";
 import type {CookieData} from "$lib/common";
 
-export const authCheck = async (cookieData:string | null) => {
+export const ownershipCheck = async (cookieData:string | null) => {
     if (cookieData && cookieData.length > 4) {
         const localStore: CookieData = JSON.parse(cookieData)
         const sql = "SELECT isLeagueOwner FROM users WHERE id = ?"

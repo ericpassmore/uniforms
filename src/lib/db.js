@@ -8,7 +8,7 @@ initializeDb()
 
 export function initializeDb() {
     database =  openDb();
-    console.log("Database initialized...")
+    console.log(`Database initialized. Path ${fs.realpathSync('.')}/${DATABASE_FILE}`)
     createTables(database);
     console.log("created tables...")
 }

@@ -1,11 +1,11 @@
 
-import {authCheck} from "$lib/authCheck";
+import {ownershipCheck} from "$lib/ownershipCheck";
 import {error} from "@sveltejs/kit";
 import {fetchAll, getDatabase} from "$lib/db";
 
 export const load = async ({cookies}) => {
     let results
-    const isAuthorized = await authCheck(cookies.get('uni_auth'))
+    const isAuthorized = await ownershipCheck(cookies.get('uni_auth'))
     if (!isAuthorized) {
             error(403, {message: 'Not Authorized'});
     } else {

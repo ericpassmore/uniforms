@@ -5,7 +5,7 @@ import {
     OAUTH_REDIRECT_URI,
     OAUTH_TOKEN_URL
 } from '$env/static/private'
-import User from "$lib/User";
+import Login from "$lib/Login";
 
 export const GET = async ({cookies, url}) => {
 
@@ -56,7 +56,7 @@ export const GET = async ({cookies, url}) => {
         })
 
         const userData = await response.json();
-        const user = new User(userData.collection.items);
+        const user = new Login(userData.collection.items);
 
         // suggest add httpOnly: true  secure: true sameSite: 'strict'
         cookies.set('uni_auth', `{"id":${user.id || -1},"token":"${access_token}"}`, {

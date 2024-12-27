@@ -1,4 +1,4 @@
-import type { UserInterface } from "$lib/User";
+import type { UserInterface } from "$lib/Login";
 import { fetchFirst, getDatabase} from "$lib/db";
 import type { CookieData } from "$lib/common";
 

@@ -1,30 +1,44 @@
-<script>
-    export let item;
+<script lang="ts">
+    import type {UniformsListInterface} from "$lib/common";
+
+    export let item: UniformsListInterface;
 </script>
 
 <div class="uniform">
     <div class="card">
         <p class="top-message">Number</p>
         <div class="number">
-            <p>{item.number}</p>
+            <p>{item.jerseyNumber}</p>
         </div>
     </div>
     <div class="attributes">
         <div class="detail">
-            Uniform Size: {item.uniform_size}
+            Uniform Size: {item.jerseySize}
         </div>
         <div class="detail">
-            {#if (item.has_shorts) }
-                Includes Shorts
-            {:else}
-                No Shorts
-            {/if}
+            {item.hasShorts ? "Includes Shorts" : "No Shorts" }
         </div>
+        {#if item.hasPinnie}
+            <div class="detail">
+                Pinny Number: {item.pinnieNumber}
+            </div>
+            <div class="detail">
+                Pinney Size: {item.pinnieSize}
+            </div>
+        {:else}
+            <div class="detail">
+                No Pinney
+            </div>
+        {/if}
+        {#if item.userId > 0 }
+            <div class="detail">
+                Checked Out: {item.firstName + " " + item.lastName}
+                <br/>{item.email}
+                <br/>User Id: {item.id}
+            </div>
+        {/if}
         <div class="detail">
-            Pinny Number: {item.pinny_number}
-        </div>
-        <div class="detail">
-            Pinney Size: {item.pinny_size}
+            Reconcile: {item.validateInStock ? "Ready" : "Not Available"}
         </div>
     </div>
 </div>

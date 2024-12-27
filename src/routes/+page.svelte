@@ -41,5 +41,4 @@
             </a>
         </div>
     {/if}
-    <Uniform item="{item}" />
 </main>

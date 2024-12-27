@@ -44,6 +44,20 @@
                 </a>
             </div>
             <div class="navbutton">
+                <a href="/add/">
+                    <p class="navicon"><span class="material-symbols-outlined">add_box</span></p>
+                    <br/>
+                    <p class="subtext">Add Eqip</p>
+                </a>
+            </div>
+            <div class="navbutton">
+                <a href="/list_alt/">
+                    <p class="navicon"><span class="material-symbols-outlined">list_alt</span></p>
+                    <br/>
+                    <p class="subtext">List Eqip</p>
+                </a>
+            </div>
+            <div class="navbutton">
                 <a href="/activity/">
                     <p class="navicon"><span class="material-symbols-outlined">history</span></p>
                     <br/>

@@ -11,7 +11,7 @@ interface UserInterface {
 }
 
 
-class User {
+class Login {
     public id: number;
     public firstName: string;
     public lastName: string;
@@ -124,5 +124,5 @@ class User {
     }
 }
 
-export default User;
+export default Login;
 export type {UserInterface};
