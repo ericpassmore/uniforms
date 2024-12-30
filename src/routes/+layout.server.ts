@@ -14,7 +14,7 @@ export const load = async ({cookies}) => {
         try {
             const user: UserInterface | undefined = await fetchFirst(
                 getDatabase(),
-                "SELECT id, firstName, lastName, email, isLeagueOwner FROM users WHERE id = ?",
+                "SELECT id, firstName, lastName, email, isAdmin FROM users WHERE id = ?",
                 localStore.id
             )
             return {isAuthenticated: true, user: user}

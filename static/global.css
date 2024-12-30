@@ -96,23 +96,6 @@ li p {
     padding-left: var(--media-gutter);
 }
 
-.actionbutton {
-    border: 1px solid var(--card-boarder-color);
-    background-color: var(--card-bg-color);
-    margin-top: var(--gutter);
-    margin-bottom: var(--media-gutter);
-    margin-left: var(--gutter);
-    margin-right: var(--media-gutter);
-    padding: var(--padding);
-    text-align: center;
-    border-radius: var(--border-radius);
-    filter: drop-shadow(var(--shadow-color) 0.25rem 0.25rem 0.25rem);
-}
-
-.actionbutton:hover {
-    cursor: pointer;
-}
-
 .navbar {
     margin-top: var(--media-gutter);
     border-top: 1px solid var(--low-em-color);
@@ -147,6 +130,44 @@ li p {
 
 .navicon .material-symbols-outlined {
     font-size: 2em;
+}
+
+.actionbutton {
+    border: 1px solid var(--card-boarder-color);
+    background-color: var(--card-bg-color);
+    margin-top: var(--gutter);
+    margin-bottom: var(--gutter);
+    margin-left: var(--gutter);
+    margin-right: var(--media-gutter);
+    padding: var(--padding);
+    text-align: center;
+    border-radius: var(--border-radius);
+    color: var(--action-color);
+}
+
+button.actionbutton {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+button.actionbutton span {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--padding);
+    padding-right: var(--padding);
+    padding-top: var(--padding);
+}
+
+button.actionbutton span.material-symbols-outlined {
+    font-size: var(--number-width);
+}
+
+.actionbutton a {
+    text-decoration: none;
+    color: var(--action-color);
+}
+.actionbutton:hover {
+    cursor: pointer;
 }
 
 .uniform {
@@ -288,6 +309,34 @@ p.top-message {
     margin-left: var(--padding);
     margin-bottom: 0;
     text-align: left;
+}
+.addpage {
+    display: flex;
+    flex-direction: row;
+}
+.restock {
+    display: flex;
+    flex-direction: row;
+}
+
+.feedback {
+    margin: var(--padding);
+}
+.success {
+    color: var(--allok-color);
+}
+.success .material-symbols-outlined {
+    font-size: var(--number-width);
+}
+.error {
+    color: var(--error-color);
+}
+.error .material-symbols-outlined {
+    font-size: var(--number-width);
+}
+.hidden {
+    visibility: hidden;
+    display: none;
 }
 
 @media screen and (min-width: 800px) {

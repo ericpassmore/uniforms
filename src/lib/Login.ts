@@ -7,7 +7,7 @@ interface UserInterface {
     firstName: string;
     lastName: string;
     email: string;
-    isLeagueOwner: boolean;
+    isAdmin: boolean;
 }
 
 
@@ -16,7 +16,7 @@ class Login {
     public firstName: string;
     public lastName: string;
     public email: string;
-    public isLeagueOwner: boolean = false;
+    public isAdmin: boolean = false;
 
     /**
      * Constructs a new User instance.
@@ -29,17 +29,17 @@ class Login {
         this.firstName = userData.firstName;
         this.lastName = userData.lastName;
         this.email = userData.email;
-        this.isLeagueOwner = userData.isLeagueOwner;
+        this.isAdmin = userData.isAdmin;
 
         const db = getDatabase();
         db.run("INSERT OR REPLACE "
-            +" INTO users(id, firstName, lastName, email, isLeagueOwner) "
+            +" INTO users(id, firstName, lastName, email, isAdmin) "
             +"VALUES (?, ?, ?, ?, ?)",
             this.id,
             this.firstName,
             this.lastName,
             this.email,
-            this.isLeagueOwner ? 1 : 0
+            this.isAdmin ? 1 : 0
         )
 
         Activity.login(this.id)
@@ -55,7 +55,7 @@ class Login {
         let lastName: string | null = null
         let email: string | null = null
         let id: number | null = null
-        let isLeagueOwner: boolean = false
+        let isAdmin: boolean = false
 
         for (const entry of jsonData) {
             for (const item of entry.data) {
@@ -72,8 +72,10 @@ class Login {
                     email = item.value;
                 }
                 if (item.name === 'highest_role') {
-                    if (item.value === 'league_owner') {
-                        isLeagueOwner = true;
+                    if (item.value === 'league_owner'
+                        || item.value === 'league_commissioner'
+                        || item.value === 'division_commissioner') {
+                        isAdmin = true;
                     }
                 }
             }
@@ -97,7 +99,7 @@ class Login {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            isLeagueOwner: isLeagueOwner
+            isAdmin: isAdmin
         }
     }
 
@@ -119,7 +121,7 @@ class Login {
             firstName: this.firstName,
             lastName: this.lastName,
             email: this.email,
-            isLeagueOwner: this.isLeagueOwner
+            isAdmin: this.isAdmin
         };
     }
 }

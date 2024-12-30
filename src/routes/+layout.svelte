@@ -35,7 +35,7 @@
                 <p class="subtext">About</p>
             </a>
         </div>
-        {#if data.user && data.user.isLeagueOwner}
+        {#if data.user && data.user.isAdmin}
             <div class="navbutton">
                 <a href="/restock/">
                     <p class="navicon"><span class="material-symbols-outlined">inventory</span></p>
@@ -62,6 +62,13 @@
                     <p class="navicon"><span class="material-symbols-outlined">history</span></p>
                     <br/>
                     <p class="subtext">Activity</p>
+                </a>
+            </div>
+            <div class="navbutton">
+                <a href="/users/">
+                    <p class="navicon"><span class="material-symbols-outlined">person</span></p>
+                    <br/>
+                    <p class="subtext">Users</p>
                 </a>
             </div>
         {/if}

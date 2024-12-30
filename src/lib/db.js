@@ -39,12 +39,12 @@ function createTables(db) {
           firstName TEXT NOT NULL,
           lastName TEXT NOT NULL,
           email TEXT UNIQUE NOT NULL,
-          isLeagueOwner INTEGER DEFAULT FALSE
+          isAdmin INTEGER DEFAULT FALSE
         );
   `);
     db.exec(`
         CREATE TABLE IF NOT EXISTS activity (
-          id INTEGER AUTO INCREMENT PRIMARY KEY,
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
           userId INTEGER,
           date TEXT NOT NULL,
           action TEXT NOT NULL,
@@ -53,7 +53,7 @@ function createTables(db) {
   `);
     db.exec(`
         CREATE TABLE IF NOT EXISTS uniforms (
-          id INTEGER AUTO INCREMENT PRIMARY KEY,
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
           jerseyNumber INTEGER NOT NULL,
           jerseySize TEXT NOT NULL,
           hasShorts INTEGER NOT NULL,
