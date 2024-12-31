@@ -1,6 +1,17 @@
 import {ownershipCheck} from "$lib/ownershipCheck";
 import {error} from "@sveltejs/kit";
 import {getDatabase} from "$lib/db";
+import fs from "node:fs";
+import QRCode from "qrcode";
+import { QRCODE_BASE_URI } from '$env/static/private'
+
+const generateQR = async(imagePath: string, text:string) => {
+    try {
+        console.log(await QRCode.toFile(imagePath,text))
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 export const actions = {
     add: async ({request, cookies}) => {
@@ -30,6 +41,8 @@ export const actions = {
             } catch (err) {
                 error(500, {message: `Error while creating uniform ${(err as Error).message}`})
             }
+            const imagePath = `${fs.realpathSync('.')}/src/lib/qrcodes/equipment-yuni-${jerseyNumber}-home.png`
+            await generateQR(imagePath,`${QRCODE_BASE_URI}?type=yuni&number=${jerseyNumber}&redir=home`)
         }
     }
 }

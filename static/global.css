@@ -179,6 +179,10 @@ button.actionbutton span.material-symbols-outlined {
     display: flex;
     flex-direction: row;
 }
+.qr-code {
+    margin-top: var(--gutter);
+    padding: var(--padding);
+}
 
 .uniform .card {
     font-size: calc(var(--text-size) * 3);
@@ -314,6 +318,10 @@ p.top-message {
     display: flex;
     flex-direction: row;
     border-radius: var(--border-radius);
+}
+.wide-equipment-listing {
+    display: flex;
+    flex-direction: row;
 }
 
 .restock {
