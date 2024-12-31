@@ -313,7 +313,9 @@ p.top-message {
 .addpage {
     display: flex;
     flex-direction: row;
+    border-radius: var(--border-radius);
 }
+
 .restock {
     display: flex;
     flex-direction: row;
@@ -322,6 +324,12 @@ p.top-message {
 .feedback {
     margin: var(--padding);
 }
+
+div#add-uniform form#full.inline-add {
+    margin: 10em;
+
+}
+
 .success {
     color: var(--allok-color);
 }
@@ -334,6 +342,26 @@ p.top-message {
 .error .material-symbols-outlined {
     font-size: var(--number-width);
 }
+.errorBox {
+    margin-top: calc(var(--gutter)*2);
+    margin-bottom: calc(var(--gutter)*2);
+    border-radius: var(--border-radius);
+    border: 2.5px solid var(--error-color);
+    font-size: calc(var(--number-width)/2);
+    display: flex;
+    flex-direction: row;
+}
+.errorBox .material-symbols-outlined {
+    padding: var(--padding);
+    font-size: var(--number-width);
+    color: var(--error-color);
+}
+.error-text {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+
 .hidden {
     visibility: hidden;
     display: none;
