@@ -1,0 +1,29 @@
+diff --git a/svelte.config.js b/svelte.config.js
+index 1295460..69788f4 100644
+--- a/svelte.config.js
++++ b/svelte.config.js
+@@ -1,8 +1,16 @@
+-import adapter from '@sveltejs/adapter-auto';
++import adapter from '@sveltejs/adapter-node';
+ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+ 
++// import adapter from '@sveltejs/adapter-auto';
++const config_node = {
++       kit: {
++               adapter: adapter()
++       }
++};
++
++
+ /** @type {import('@sveltejs/kit').Config} */
+-const config = {
++const config_vite = {
+        // Consult https://svelte.dev/docs/kit/integrations
+        // for more information about preprocessors
+        preprocess: vitePreprocess(),
+@@ -15,4 +23,4 @@ const config = {
+        }
+ };
+ 
+-export default config;
++export default config_node;

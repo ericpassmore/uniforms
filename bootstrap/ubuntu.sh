@@ -87,7 +87,7 @@ server {
             try_files $uri $uri/ =404;
         }
         # matches these directors with possible subdirs underneath and handles trailing slash 
-        location ~ ^/(?:_app|__data|favicon\.png|global\.css|list_alt|restock|users|activity|about|add)(?:/|$) {
+        location ~ ^/(?:_app|__data|favicon\.png|global\.css|list_alt|restock|login|logout|oauth|api|users|activity|about|add)(?:/|$) {
              proxy_buffering off;
              proxy_pass http://127.0.0.1:4000;
              proxy_set_header Host \$host;
