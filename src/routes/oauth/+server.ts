@@ -72,5 +72,5 @@ export const GET = async ({cookies, url}) => {
     }
 
     // redirect must be outside of try/catch block
-    redirect(307, '/');
+    redirect(307, '/about');
 }

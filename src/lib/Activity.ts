@@ -27,4 +27,7 @@ export class Activity {
     static restock(userId: number, equipmentId: number) {
         Activity.addEntry(userId, "restock", equipmentId)
     }
+    static acceptTerms(userId: number) {
+        Activity.addEntry(userId, "accept-terms")
+    }
 }
