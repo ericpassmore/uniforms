@@ -202,6 +202,10 @@ button.actionbutton span.material-symbols-outlined {
     font-size: calc(var(--text-size) * 3);
 }
 
+.uniform .card .number .tinynum {
+    font-size: calc(var(--text-size) / 1.5);
+}
+
 .uniform .attributes {
     display: flex;
     flex-direction: column;
@@ -217,6 +221,8 @@ button.actionbutton span.material-symbols-outlined {
     padding: var(--padding);
     margin: var(--padding)
 }
+
+
 
 .maincontent > h2 {
     margin-top: var(--gutter);

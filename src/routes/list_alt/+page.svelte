@@ -14,7 +14,7 @@
         {#each data.uniforms as item}
             <div class="wide-equipment-listing">
                 <Uniform item="{item}" style='all'/>
-                <QRCode type="yuni" number="{item.jerseyNumber}" redir="home"/>
+                <QRCode type="yuni" number="{item.id}" redir="home"/>
             </div>
         {/each}
     </div>

@@ -3,11 +3,11 @@ import {error} from "@sveltejs/kit";
 import {getDatabase} from "$lib/db";
 import fs from "node:fs";
 import QRCode from "qrcode";
-import { QRCODE_BASE_URI } from '$env/static/private'
+import {QRCODE_BASE_URI} from '$env/static/private'
 
-const generateQR = async(imagePath: string, text:string) => {
+const generateQR = async (imagePath: string, text: string) => {
     try {
-        console.log(await QRCode.toFile(imagePath,text))
+        console.log(await QRCode.toFile(imagePath, text))
     } catch (err) {
         console.error(err)
     }
@@ -35,14 +35,30 @@ export const actions = {
                 "(jerseyNumber, jerseySize, hasShorts, pinnieNumber, pinnieSize, hasPinnie) " +
                 "VALUES (?, ?, ?, ?, ?, ?)"
             const db = getDatabase()
-            try {
-                db.run(sql, jerseyNumber, jerseySize, hasShorts, pinnieNumber, pinnieSize, hasPinnie)
 
-            } catch (err) {
-                error(500, {message: `Error while creating uniform ${(err as Error).message}`})
+            const stmt = db.prepare(sql);
+            let equipmentId: number
+
+            stmt.run(jerseyNumber,
+                jerseySize,
+                hasShorts,
+                pinnieNumber,
+                pinnieSize,
+                hasPinnie,
+                function (err) {
+                    if (err) {
+                        error(500, {message: `Error while creating uniform ${(err as Error).message}`})
+                    }
+                    equipmentId = this.lastID;
+                });
+
+            stmt.finalize();
+
+            if (equipmentId == null) {
+                console.log(`equipmentId is undefined after db to create uniform`)
             }
-            const imagePath = `${fs.realpathSync('.')}/src/lib/qrcodes/equipment-yuni-${jerseyNumber}-home.png`
-            await generateQR(imagePath,`${QRCODE_BASE_URI}?type=yuni&number=${jerseyNumber}&redir=home`)
+            const imagePath = `${fs.realpathSync('.')}/src/lib/qrcodes/equipment-yuni-${equipmentId}-home.png`
+            await generateQR(imagePath, `${QRCODE_BASE_URI}?type=yuni&number=${equipmentId}&redir=home`)
         }
     }
 }

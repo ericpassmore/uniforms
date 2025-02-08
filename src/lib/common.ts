@@ -17,3 +17,7 @@ export interface UniformsListInterface {
     userId: number;
     validateInStock: boolean;
 }
+
+export interface EquipmentIdInterface {
+    id: number;
+}

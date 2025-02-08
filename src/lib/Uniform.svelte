@@ -9,7 +9,9 @@
     <div class="card">
         <p class="top-message">Number</p>
         <div class="number">
-            <p>{item.jerseyNumber}</p>
+            <p>{item.jerseyNumber}
+                <span class="tinynum">{item.id}</span>
+            </p>
         </div>
     </div>
     <div class="attributes">

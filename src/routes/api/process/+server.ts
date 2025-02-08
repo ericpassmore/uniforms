@@ -3,13 +3,13 @@ import type {CookieData} from "$lib/common";
 import {fetchFirst, getDatabase} from "$lib/db";
 import {ownershipCheck} from "$lib/ownershipCheck";
 
-const getUniform = async(db: any, jerseyNumber: number) => {
+const getUniform = async(db: any, equipmentId: number) => {
     let results
     try {
         const sql = "SELECT id, jerseyNumber, jerseySize, hasShorts, " +
             "pinnieNumber, pinnieSize, hasPinnie, checkedOutBy, validateInStock "
-            + "FROM uniforms WHERE jerseyNumber = ? "
-        results = await fetchFirst(db, sql, jerseyNumber);
+            + "FROM uniforms WHERE id = ? "
+        results = await fetchFirst(db, sql, equipmentId);
     } catch(err) {
         console.log(`Error in API selecting uniform ${err}`);
     }
@@ -67,7 +67,7 @@ const debugMessage = (message: string) => {
 export const GET = async ({cookies, url}) => {
 
     const type = url.searchParams.get('type')
-    const jerseyNumber = url.searchParams.get('number')
+    const equipmentId = url.searchParams.get('number')
     const redirectPath = redirPathToURL(url.searchParams.get('redir'))
 
     if (!type || type !== 'yuni') {
@@ -75,7 +75,7 @@ export const GET = async ({cookies, url}) => {
         error(400, {message: `Type ${type} not supported`});
     }
 
-    if (type && jerseyNumber) {
+    if (type && equipmentId) {
         const uniAuth = cookies.get('uni_auth')
         if (uniAuth && uniAuth.length > 4) {
             const localStore: CookieData = JSON.parse(uniAuth)
@@ -92,7 +92,7 @@ export const GET = async ({cookies, url}) => {
             const isAdmin = await ownershipCheck(uniAuth)
 
             const db = getDatabase()
-            const uniform = await getUniform(db, Number(jerseyNumber))
+            const uniform = await getUniform(db, Number(equipmentId))
             if (!uniform) {
                 if (redirectPath) {
                     debugMessage('Redirection with error uniform does not exist')
@@ -102,7 +102,7 @@ export const GET = async ({cookies, url}) => {
                 error(404, {message: 'Uniform Not Found'});
             }
             const state = getState(uniform.checkedOutBy, uniform.validateInStock)
-            debugMessage(`State for ${jerseyNumber}: ${state}`)
+            debugMessage(`State for ${equipmentId}: ${state}`)
             /****
              **  Process from Available State to Checkout
              */
