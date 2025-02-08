@@ -27,8 +27,6 @@
         errorMessage = prettyErrorMessage(errorCode)
         errorVisible = true;
     }
-
-    let disableStatus = true
 </script>
 
 <svelte:head>
@@ -56,25 +54,6 @@
         </div>
     {:else}
         <p>Hello {data.user ? data.user.firstName : ""}! Use your phone and scan a QR code to add a uniform</p>
-        {#if !disableStatus}
-            <button popovertarget="add-uniform" class="actionbutton">
-                <span class="material-symbols-outlined">add</span>
-                <span class="subtext">Add</span>
-            </button>
-            <div popover id="add-uniform">
-                <form id="full" class="inline-add" action="/api/process" method="GET">
-                    <div class="form-group">
-                        <label for="number">Internal Equipment Id:</label>
-                        <input type="number" id="number" name="number" maxlength="3" required>
-                        <input type="hidden" id="type" name="type" value="yuni">
-                        <input type="hidden" id="redir" name="redir" value="home">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" disabled="{disableStatus}">Submit</button>
-                    </div>
-                </form>
-            </div>
-        {/if}
     {/if}
     <div class="list_alt">
         {#each data.uniforms as item}
