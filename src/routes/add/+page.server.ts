@@ -4,6 +4,7 @@ import {getDatabase} from "$lib/db";
 import fs from "node:fs";
 import QRCode from "qrcode";
 import {QRCODE_BASE_URI} from '$env/static/private'
+import {PUBLIC_QR_IMAGE_PATH} from '$env/static/public'
 
 const generateQR = async (imagePath: string, text: string) => {
     try {
@@ -57,8 +58,12 @@ export const actions = {
             if (equipmentId == null) {
                 console.log(`equipmentId is undefined after db to create uniform`)
             }
-            const imagePath = `${fs.realpathSync('.')}/src/lib/qrcodes/equipment-yuni-${equipmentId}-home.png`
-            await generateQR(imagePath, `${QRCODE_BASE_URI}?type=yuni&number=${equipmentId}&redir=home`)
+            const baseImagePath: string = PUBLIC_QR_IMAGE_PATH!=='default' ?
+                PUBLIC_QR_IMAGE_PATH : `${fs.realpathSync('.')}/src/lib/qrcodes`
+            await generateQR(
+                `${baseImagePath}/equipment-yuni-${equipmentId}-home.png`,
+                `${QRCODE_BASE_URI}?type=yuni&number=${equipmentId}&redir=home`
+            )
         }
     }
 }

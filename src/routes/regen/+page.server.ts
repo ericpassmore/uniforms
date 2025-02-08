@@ -4,11 +4,13 @@ import {fetchAll, getDatabase} from "$lib/db";
 import fs from "node:fs";
 import QRCode from "qrcode";
 import {QRCODE_BASE_URI} from '$env/static/private'
+import {PUBLIC_QR_IMAGE_PATH} from '$env/static/public'
 import type {EquipmentIdInterface} from "$lib/common";
 
 const generateQR = async (imagePath: string, text: string) => {
     try {
-        console.log(await QRCode.toFile(imagePath, text))
+        console.log(`Generating QR code from ${imagePath}`);
+        await QRCode.toFile(imagePath, text)
     } catch (err) {
         console.error(err)
     }
@@ -30,8 +32,12 @@ export const actions = {
         }
 
         for (const equipment of uniformsIds) {
-            const imagePath = `${fs.realpathSync('.')}/src/lib/qrcodes/equipment-yuni-${equipment.id}-home.png`
-            await generateQR(imagePath, `${QRCODE_BASE_URI}?type=yuni&number=${equipment.id}&redir=home`)
+            const baseImagePath: string = PUBLIC_QR_IMAGE_PATH!=='default' ?
+                PUBLIC_QR_IMAGE_PATH : `${fs.realpathSync('.')}/src/lib/qrcodes`
+            await generateQR(
+                `${baseImagePath}/equipment-yuni-${equipment.id}-home.png`,
+                `${QRCODE_BASE_URI}?type=yuni&number=${equipment.id}&redir=home`
+            )
         }
     }
 }

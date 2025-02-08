@@ -9,7 +9,16 @@
 </svelte:head>
 
 <main>
-    <h2>All Equipment</h2>
+    <div class="titlewithnav">
+        <h2>All Equipment</h2>
+        <div class="sidenavbutton">
+            <a href="/">
+                <p class="navicon"><span class="material-symbols-outlined">home</span></p>
+                <br/>
+                <p class="subtext">Home</p>
+            </a>
+        </div>
+    </div>
     <div class="list_alt">
         {#each data.uniforms as item}
             <div class="wide-equipment-listing">
