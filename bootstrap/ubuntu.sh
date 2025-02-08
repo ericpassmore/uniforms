@@ -121,6 +121,13 @@ systemctl start nginx
 sudo -u webuser -c bash 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
 sudo -u webuser -c bash 'nvm install node'
 sudo -u webuser -c bash 'git clone https://github.com/ericpassmore/uniforms'
+
+## update image location for files
+# routes add
+# const imagePath = `/var/www/bellevuegirlslax/html/ngxstatic/qrcodes/equipment-yuni-${jerseyNumber}-home.png`
+## usual pre-steps
+npm install
+npm run build
 ## run node process
 cd uniforms
 nohup bash -c 'HOST=127.0.0.1 PORT=4000 node build ' &
