@@ -22,6 +22,8 @@
         }
     }
 
+    const hasUniforms = Array.isArray(data.uniforms) && data.uniforms.length > 0;
+
     const errorCode = page.url.searchParams.get('error');
     if (errorCode) {
         errorMessage = prettyErrorMessage(errorCode)
@@ -53,7 +55,12 @@
             </a>
         </div>
     {:else}
-        <p>Hello {data.user ? data.user.firstName : ""}! Use your phone and scan a QR code to add a uniform</p>
+        {#if !hasUniforms}
+            <p>Hello {data.user ? data.user.firstName : ""}! Use your phone and scan a QR code to add a uniform</p><br/>
+        {:else }
+            <p>Thank you. You are all set, your uniform is reserved.</p><br/>
+            <p>If you scan the QR Code again the uniform will be returned for restocking</p><br/>
+        {/if}
     {/if}
     <div class="list_alt">
         {#each data.uniforms as item}
