@@ -16,7 +16,7 @@
             case 'not_owner':
                 return 'Not Allowed: Someone else has checked out that item.'
             case 'not_admin':
-                return 'Not Allowed: Commissioner level permissions required to restock items.'
+                return 'Not Allowed: You have already returned this item. Request a restock.'
             default:
                 return errorCode
         }
