@@ -38,20 +38,13 @@ export const actions = {
             const db = getDatabase()
 
             const stmt = db.prepare(sql);
-            let equipmentId: number
 
-            stmt.run(jerseyNumber,
-                jerseySize,
-                hasShorts,
-                pinnieNumber,
-                pinnieSize,
-                hasPinnie,
-                function (err) {
-                    if (err) {
-                        error(500, {message: `Error while creating uniform ${(err as Error).message}`})
-                    }
-                    equipmentId = this.lastID;
+            const equipmentId = await new Promise<number>((resolve, reject) => {
+                stmt.run(jerseyNumber, jerseySize, hasShorts, pinnieNumber, pinnieSize, hasPinnie, function (err) {
+                    if (err) reject(err);
+                    else resolve(this.lastID);
                 });
+            });
 
             stmt.finalize();
 

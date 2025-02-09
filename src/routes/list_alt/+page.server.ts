@@ -1,7 +1,6 @@
 import {fetchAll, getDatabase, getDatabaseLocation} from '$lib/db.js';
 import type {UniformsListInterface} from "$lib/common";
 
-
 export const load = async () => {
     const db = getDatabase();
     if (!db) {

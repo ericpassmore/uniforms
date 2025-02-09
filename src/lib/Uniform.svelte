@@ -7,7 +7,7 @@
 
 <div class="uniform">
     <div class="card">
-        <p class="top-message">Number</p>
+        <p class="top-message">Jersey Num.</p>
         <div class="number">
             <p>{item.jerseyNumber}
                 <span class="tinynum">{item.id}</span>
