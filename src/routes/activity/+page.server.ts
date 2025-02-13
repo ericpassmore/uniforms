@@ -15,5 +15,12 @@ export const load = async ({cookies}) => {
         const db = getDatabase()
         results = await fetchAll(db, sql)
     }
+    results.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+
+        return dateB.getTime() - dateA.getTime();
+    });
+
     return {results}
 }
