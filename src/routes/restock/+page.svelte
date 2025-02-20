@@ -15,7 +15,7 @@
         {#each data.uniforms as item}
             <div class="restock">
                 <Uniform item="{item}" style='all'/>
-                <ProcessButton equipmentId={item.id} redirectPath="restock"/>
+                <ProcessButton equipmentId={item.id} redirectPath="restock" textHelp="Return-OK"/>
             </div>
         {/each}
     </div>

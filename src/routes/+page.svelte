@@ -66,7 +66,7 @@
         {#each data.uniforms as item}
             <div class="restock">
                 <Uniform item="{item}"/>
-                <ProcessButton equipmentId={item.id} redirectPath="home"/>
+                <ProcessButton equipmentId={item.id} redirectPath="home" textHelp="Restock"/>
             </div>
         {/each}
     </div>

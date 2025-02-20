@@ -1,6 +1,7 @@
 <script lang="ts">
     import Uniform from "$lib/Uniform.svelte";
     import QRCode from "$lib/QRCode.svelte";
+    import ProcessButton from "$lib/ProcessButton.svelte";
 
     export let data;
 </script>
@@ -22,8 +23,15 @@
     <div class="list_alt">
         {#each data.uniforms as item}
             <div class="wide-equipment-listing">
-                <Uniform item="{item}" style='all'/>
-                <QRCode type="yuni" number="{item.id}" redir="home"/>
+                {#if data.user && data.user.isAdmin}
+                    <Uniform item="{item}" style='all' />
+                    <QRCode type="yuni" number="{item.id}" redir="home"/>
+                {:else}
+                    <div class="restock">
+                        <Uniform item="{item}" style='short' />
+                        <ProcessButton equipmentId={item.id} redirectPath="home" textHelp="Checkout"/>
+                    </div>
+                {/if}
             </div>
         {/each}
     </div>

@@ -35,6 +35,13 @@
                 <p class="subtext">About</p>
             </a>
         </div>
+        <div class="navbutton">
+            <a href="/list_alt/">
+                <p class="navicon"><span class="material-symbols-outlined">list_alt</span></p>
+                <br/>
+                <p class="subtext">List Eqip</p>
+            </a>
+        </div>
         {#if data.user && data.user.isAdmin}
             <div class="navbutton">
                 <a href="/restock/">
@@ -48,13 +55,6 @@
                     <p class="navicon"><span class="material-symbols-outlined">add_box</span></p>
                     <br/>
                     <p class="subtext">Add Eqip</p>
-                </a>
-            </div>
-            <div class="navbutton">
-                <a href="/list_alt/">
-                    <p class="navicon"><span class="material-symbols-outlined">list_alt</span></p>
-                    <br/>
-                    <p class="subtext">List Eqip</p>
                 </a>
             </div>
             <div class="navbutton">
